@@ -1,0 +1,92 @@
+class Node:
+    def __init__(self, value):
+        self.value = value
+        self.next = None
+
+class LinkedList:
+    def __init__(self, value):
+        self.head = Node(value)
+        self.tail = self.head
+        self.length = 1
+    
+    def append(self, value):
+        newNode = Node(value)
+        self.tail.next = newNode
+        self.tail = newNode
+        self.length += 1
+        return self
+        
+    def prepend(self, value):
+        newHead = Node(value)
+        newHead.next = self.head
+        self.head = newHead
+        self.length += 1
+        return self
+    
+    def traverseToIndex(self, index):
+        counter = 0
+        currentNode = self.head
+        while counter != index - 1:
+            currentNode = currentNode.next
+            counter += 1
+        return currentNode
+    
+    def reverse(self):
+        if self.head.next is None:
+            return self
+        
+        first = self.head
+        self.tail = self.head
+        second = first.next
+        
+        while second is not None:
+            temp = second.next
+            second.next = first
+            first = second
+            second = temp
+
+        self.head.next = None
+        self.head = first
+        return self
+        
+    def insert(self, index, value):
+        if index >= self.length:
+            self.append(value)
+        elif index == 0:
+            self.prepend(value)
+        else:
+            newNode = Node(value)
+            currentNode = self.traverseToIndex(index)
+            newNode.next = currentNode.next
+            currentNode.next = newNode
+        
+        self.length += 1
+        return self
+    
+    def remove(self, index):
+        prevNode = self.traverseToIndex(index)
+        unwantedNode = prevNode.next
+        prevNode.next = unwantedNode.next
+        
+        self.length -= 1
+        return self
+    
+    def print_linked_list(self):
+        current = self.head
+        while current is not None:
+            print(current.value, end=" -> ")
+            current = current.next
+        print("None")
+        print('Length: ', self.length)
+    
+myLinkedList = LinkedList(10)
+
+myLinkedList.append(5)
+myLinkedList.append(16)
+myLinkedList.append(34)
+myLinkedList.prepend(1)
+
+myLinkedList.print_linked_list()
+
+myLinkedList.reverse()
+myLinkedList.print_linked_list()
