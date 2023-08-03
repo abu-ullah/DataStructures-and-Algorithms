@@ -10,29 +10,44 @@ class BinarySearchTree:
         
     def insert(self, value):
         newNode = Node(value)
-
+        
         if self.root is None:
             self.root = newNode
             return self
-        
-        currentNode = self.root
-        while True:
-            if newNode.value < currentNode.value:
-                if currentNode.left is None:
-                    currentNode.left = newNode
-                    return self
-                currentNode = currentNode.left
-            else:
-                if currentNode.right is None:
-                    currentNode.right = newNode
-                    return self
-                currentNode = currentNode.right
+        else:
+            currentNode = self.root
+            while True:
+                if value < currentNode.value:
+                    if currentNode.left is None:
+                        currentNode.left = newNode
+                        return self
+                    currentNode = currentNode.left
+                else:
+                    if currentNode.right is None:
+                        currentNode.right = newNode
+                        return self
+                    currentNode = currentNode.right
             
     def lookup(self, value):
-        pass
+        if self.root is None:
+            print('No root node found')
+            return
+        
+        currentNode = self.root
+        while currentNode is not None:
+            if value == currentNode.value:
+                return currentNode 
+            elif value < currentNode.value:
+                currentNode = currentNode.left
+            elif value > currentNode.value:
+                currentNode = currentNode.right
+        return False
     
     def remove(self, value):
-        pass
+        if self.root is None:
+            return False
+        
+        
     
     def print_tree(self):
         def print_inorder(node):
@@ -56,3 +71,7 @@ myTree.insert(6)
 
 myTree.print_tree()
 
+print('Lookup(20): ', myTree.lookup(20).value)
+print('Lookup(9): ', myTree.lookup(9).value)
+print('Lookup(4): ', myTree.lookup(4).value)
+print('Lookup(56): ', myTree.lookup(56))
