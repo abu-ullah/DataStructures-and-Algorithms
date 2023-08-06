@@ -43,6 +43,7 @@ class BinarySearchTree:
                 currentNode = currentNode.right
         return False
     
+    ### Incomplete
     def remove(self, value):
         ### If Tree is empty
         if self.root is None:
