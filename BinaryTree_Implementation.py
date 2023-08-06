@@ -44,10 +44,31 @@ class BinarySearchTree:
         return False
     
     def remove(self, value):
+        ### If Tree is empty
         if self.root is None:
             return False
         
+        ### Else
+        ### We need reference of current and prev node
+        currentNode = self.root
+        parentNode = None
         
+        while currentNode:
+            if value < currentNode.value:
+                parent = currentNode
+                currentNode = currentNode.left
+            elif value > currentNode.value:
+                parentNode = currentNode
+                currentNode = currentNode.right
+            ## Match Found -> Remove Node
+            elif value == currentNode.value:
+                ## Check if current node has a right child
+                if currentNode.right is None:
+                    pass
+                elif currentNode.right.left is None:
+                    pass
+                
+                            
     
     def print_tree(self):
         def print_inorder(node):
